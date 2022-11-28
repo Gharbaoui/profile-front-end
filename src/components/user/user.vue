@@ -41,7 +41,7 @@ export default defineComponent({
   computed: {
     user_img () : string
     {
-      return require("@/assets/user/user-img.jpg");
+      return this.user.user_image;
     },
     full_name(): string {
       return this.uppercaseString(this.user.full_name);
@@ -61,7 +61,8 @@ export default defineComponent({
       const words = str.split(` `);
       let new_words: Array<string> = [];
       for (let w of words) {
-        new_words.push(w[0].toUpperCase() + w.slice(1));
+        if (w.trim().length !== 0)
+          new_words.push(w[0].toUpperCase() + w.slice(1));
       }
       return new_words.join(` `);
     },

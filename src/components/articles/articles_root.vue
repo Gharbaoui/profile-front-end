@@ -14,7 +14,23 @@
         </div>
     </div>
 
-    <div>test</div>
+    <div class="w-full flex justify-around mt-10">
+      <div class="bg-red-300 flex flex-col items-center py-5 w-1/4 ">
+        <div>title</div>
+        <img :src="dummylogo" class="w-16" alt="">
+        <div>idea</div>
+      </div>
+      <div class="bg-red-300 flex flex-col items-center py-5 w-1/4 ">
+        <div>title</div>
+        <img :src="dummylogo" class="w-16" alt="">
+        <div>idea</div>
+      </div>
+      <div class="bg-red-300 flex flex-col items-center py-5 w-1/4 ">
+        <div>title</div>
+        <img :src="dummylogo" class="w-16" alt="">
+        <div>idea</div>
+      </div>
+    </div>
   </div>
 
   </template>
@@ -32,6 +48,11 @@
     methods: {
       searchForArticle() {
         console.log(`searching for ${this.searchStr}`);
+      }
+    },
+    computed: {
+      dummylogo() : string {
+        return require("@/assets/user/user-img.jpg");
       }
     }
   });

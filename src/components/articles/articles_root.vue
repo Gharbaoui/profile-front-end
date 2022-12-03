@@ -15,17 +15,17 @@
     </div>
 
     <div class="w-full flex justify-around mt-10">
-      <div class="bg-red-300 flex flex-col items-center py-5 w-1/4 ">
+      <div class="bg-red-300 inset-0 transform  hover:rotate-[30deg] hover:scale-105 transition duration-300 flex flex-col items-center py-5 w-1/4 ">
         <div>title</div>
         <img :src="dummylogo" class="w-16" alt="">
         <div>idea</div>
       </div>
-      <div class="bg-red-300 flex flex-col items-center py-5 w-1/4 ">
+      <div class="bg-red-300 inset-0 transform  hover:rotate-[30deg] hover:scale-105 transition duration-300 flex flex-col items-center py-5 w-1/4 ">
         <div>title</div>
         <img :src="dummylogo" class="w-16" alt="">
         <div>idea</div>
       </div>
-      <div class="bg-red-300 flex flex-col items-center py-5 w-1/4 ">
+      <div class="bg-red-300 inset-0 transform  hover:rotate-[30deg] hover:scale-105 transition duration-300 flex flex-col items-center py-5 w-1/4 ">
         <div>title</div>
         <img :src="dummylogo" class="w-16" alt="">
         <div>idea</div>

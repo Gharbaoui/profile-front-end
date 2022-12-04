@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import UserRoute from '../components/user/user.vue'
 import ArticlesRoute from '../components/articles/articles_root.vue'
+import ArticleBlock from '../components/articles/article.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -16,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/articles',
     name: 'articles',
     component: ArticlesRoute
+  },
+  {
+    path: '/article',
+    name: 'article',
+    component: ArticleBlock
   }
 ]
 

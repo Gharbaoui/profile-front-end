@@ -30,7 +30,7 @@
   <script lang="ts">
   import { defineComponent } from 'vue';
   import {BasicArticle} from './dto/index';
-
+  import router from '@/router';
   export default defineComponent({
     name: 'ArticlesCompo',
     created() {
@@ -74,7 +74,7 @@
           return upper;
       },
       goToArticle(articleId:number) {
-        console.log(`go to article ${articleId}`);
+        router.push({name: 'article', query: {articleid: articleId}});
       }
     },
     computed: {

@@ -41,14 +41,11 @@
   import { defineComponent } from 'vue';
   import {BasicArticle} from './dto/index';
   import router from '@/router';
+  import axios from 'axios';
   export default defineComponent({
     name: 'ArticlesCompo',
     created() {
-      this.total_articles = 8;
-      for (let i = 0; i < 3; ++i) {
-        this.addArticle();
-      }
-      this.stillValid();
+      this.initData();
     },
     data() {
       return {
@@ -64,17 +61,22 @@
       }
     },
     methods: {
+      async initData() {
+        try {
+          const resp = await axios({
+            method: 'get',
+            url: `http://${process.env.VUE_APP_BACKEND_API}/articles/initbasicarticle`
+          });
+          this.total_articles = resp.data;
+        } catch(err) {
+          console.log(err);
+        }
+
+        this.stillValid();
+        this.getRightArticles();
+      },
       searchForArticle() {
         console.log(`searching for ${this.searchStr}`);
-      },
-      addArticle() {
-        this.articles.push({
-        id:1,
-        title: 'my title uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu',
-        idea: 'Which of the two sovereigns is imbued with the Moral law? (2) Which of the two generals has most ability? (3) With whom lie the advantages derived from Heaven and Earth? (4) On which side is discipline most rigorously enforced? (5) Which army is stronger? (6) On which side are officers and men more highly trained? (7) In which army is there the greater constancy both in reward and punishment?',
-        logo: require("@/assets/user/user-img.jpg"),
-        time: 34
-      });
       },
       shortenLongText(value:string) : string {
         if (value.length > this.ideaMaxLen)
@@ -113,6 +115,19 @@
       async getRightArticles() {
         console.log(`called with ${this.current_page}`);
         const {start_index, end_index} = this.getArticleIndexs();
+        try {
+          const resp = await axios({
+            method: 'get',
+            url: `http://${process.env.VUE_APP_BACKEND_API}/articles/basicarticles`,
+            params: {
+              startIndex: start_index,
+              endIndex: end_index
+            }
+          });
+          this.articles = resp.data;
+        } catch(err) {
+          console.log(err);
+        }
       },
       stillValid() {
         this.next_is_valid = (this.current_page * this.max_article_size) < this.total_articles;

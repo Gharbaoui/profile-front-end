@@ -3,5 +3,5 @@ export interface    BasicArticle {
     title:string;
     idea: string;
     logo:string;
-    time:number;
+    release_time:number;
 }

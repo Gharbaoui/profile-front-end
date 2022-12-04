@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col py-5 h-[85%]">
+  <div class="flex flex-col justify-around py-5 h-[85%]">
     <div class="w-full">
       <div class="flex justify-end">
 
@@ -15,14 +15,24 @@
     </div>
 
     <div class="w-full flex flex-wrap justify-around mt-10 h-3/4">
-
-      <div v-for="article in articles" :key="article.id" @click="goToArticle(article.id)" class="cursor-pointer bg-gradient-to-b from-cyan-500 to-blue-500 rounded-lg inset-0 transform  hover:rotate-[30deg] hover:scale-[1.03] transition duration-300 flex flex-col items-center justify-around py-5 w-1/4">
+      <div v-for="article in articles" :key="article.id" @click="goToArticle(article.id)" class="border before:absolute before:-bottom-2 before:-right-2 before:h-4 before:w-4 before:border-b before:border-r before:transition-all before:duration-300 before:ease-in-out after:absolute after:-top-2 after:-left-2 after:h-4 after:w-4 after:border-t after:border-l after:transition-all after:duration-300 after:ease-in-out hover:before:h-[calc(100%+16px)] hover:before:w-[calc(100%+16px)] hover:after:h-[calc(100%+16px)] hover:after:w-[calc(100%+16px)]    cursor-pointer bg-gradient-to-b from-cyan-500 to-blue-500 rounded-lg inset-0 transform  hover:rotate-[15deg] hover:scale-[1.03] transition duration-300 flex flex-col items-center justify-around py-5 w-1/4">
         <div class="text-white font-bold text-2xl">{{titleTransform(article.title)}}</div>
         <img :src="article.logo" alt="article logo" class="w-1/4">
         <div class="text-lg text-white italic text-center">{{shortenLongText(article.idea)}}</div>
       </div>
 
     </div>
+    <div class="w-full flex justify-center mt-5">
+		<ul class="inline-flex -space-x-px">
+			<li @click="prevArticleList" class="bg-white border border-gray-300 text-gray-500 ml-0 rounded-l-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" :class="{'cursor-pointer hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-white': prev_is_valid}">
+        Previous
+			</li>
+
+			<li @click="nextArticleList" class="bg-white border border-gray-300 text-gray-500 rounded-r-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" :class="{'cursor-pointer hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-white': next_is_valid}">
+        Next
+      </li>
+		</ul>
+	</div>
   </div>
 
   </template>
@@ -34,12 +44,18 @@
   export default defineComponent({
     name: 'ArticlesCompo',
     created() {
+      this.total_articles = 8;
       for (let i = 0; i < 3; ++i) {
         this.addArticle();
       }
+      this.stillValid();
     },
     data() {
       return {
+        next_is_valid: true,
+        prev_is_valid: true,
+        total_articles: 0,
+        current_page: 1,
         ideaMaxLen: 80,
         titleMaxLen: 20,
         searchStr: '',
@@ -75,9 +91,40 @@
       },
       goToArticle(articleId:number) {
         router.push({name: 'article', query: {articleid: articleId}});
+      },
+      nextArticleList() {
+        if (!this.next_is_valid)
+          return;
+        ++this.current_page;
+        this.getRightArticles();
+      },
+      prevArticleList() {
+        if (!this.prev_is_valid)
+          return ;
+        --this.current_page;
+        this.getRightArticles();
+      },
+      getArticleIndexs() {
+        return {
+          start_index: (this.current_page - 1) * this.max_article_size,
+          end_index: (this.current_page * this.max_article_size) - 1
+        };
+      },
+      async getRightArticles() {
+        console.log(`called with ${this.current_page}`);
+        const {start_index, end_index} = this.getArticleIndexs();
+      },
+      stillValid() {
+        this.next_is_valid = (this.current_page * this.max_article_size) < this.total_articles;
+        this.prev_is_valid = this.current_page > 1;
       }
     },
     computed: {
+    },
+    watch: {
+      current_page() {
+        this.stillValid();
+      }
     }
   });
   

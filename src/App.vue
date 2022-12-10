@@ -1,7 +1,11 @@
 <template>
   <div class="bg-gradient-to-t from-blue-600 to-slate-100 h-screen px-10 py-5">
-    <manager-comp />
-    <router-view />
+    <div style="height: 10%;">
+      <manager-comp />
+    </div>
+    <div style="height: 90%;">
+      <router-view />
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gradient-to-t from-blue-600 to-slate-100 h-screen px-10 py-5">
+  <div class="h-screen px-10 py-5" :class="bgColor">
     <div style="height: 10%;">
       <manager-comp />
     </div>
@@ -12,11 +12,18 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ManagerComp from './components/manager.vue';
+import store from './store';
 
 export default defineComponent({
   name: 'AppCompo',
   components:{
     'manager-comp': ManagerComp
+  },
+  computed: {
+    bgColor() : string
+    {
+      return store.getters.get_is_article ? 'bg-black' : 'bg-gradient-to-t from-blue-600 to-slate-100';
+    }
   }
 });
 

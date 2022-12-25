@@ -1,5 +1,6 @@
 <template>
-    <div class="h-full overflow-y-auto w-full py-5">
+  <div class="h-full w-full flex flex-col justify-center items-center">
+    <div class="h-full overflow-y-auto w-full py-5 w-5/6">
       <div class="text-center w-full text-lg py-3 font-mono font-bold border-line border-white border-b-2">
         {{explained.title}}
       </div>
@@ -27,11 +28,13 @@
         <div class="mb-4">
           <img :src="exp.explain_img.path" alt="explained image for more learning">
         </div>
-        <!-- later i should fix the source code style problem since now i do not have network access -->
-        <pre v-if="is_source_code(index)" class="w-full"><code :class="exp.code_snipest.language" data-prismjs-copy="copy">{{exp.code_snipest.source_code}}</code></pre>
+        <div class="w-full">
+          <pre v-if="is_source_code(index)" v-codehighlighting data-prismjs-copy-timeout="500" class="w-full"><code :class="exp.code_snipest.language" data-prismjs-copy="copy">{{exp.code_snipest.source_code}}</code></pre>
+        </div>
         <div>
         </div>
       </div>
+
       <div class="w-full text-center mt-4 text-white text-2xl font-mono">
         <!-- conclusion  -->
         {{explained.conclusion}}
@@ -57,7 +60,7 @@
         </div>
       </div>
 
-
+      </div>
     </div>
 </template>
     
@@ -70,14 +73,17 @@
   import "prismjs/plugins/toolbar/prism-toolbar.min.css";
   import "prismjs/plugins/toolbar/prism-toolbar.min";
   import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min";
+import store from '@/store';
 
   export default defineComponent({
     name: 'ArticleBlock',
     mounted() {
-      window.Prism = window.Prism || {};
-      window.Prism.manual = true;
-      Prism.highlightAll();
+      store.commit('update_is_article', true);
+      this.$emit('articlerendered');
       this.getExplained();
+    },
+    unmounted () {
+      store.commit('update_is_article', false);
     },
     data() {
         return {
@@ -114,7 +120,7 @@
       },
       nextArticle() {
         console.log(`go next`);
-      }
+      },
     },
     computed: {
       is_there_requirements() : boolean {
@@ -132,6 +138,15 @@
         if (this.explained.next_prev_article)
           return this.explained.next_prev_article.prv_article_id != -1;
         return false;
+      }
+    },
+    directives: {
+      codehighlighting(el:any) {
+        if (!window || !Prism)
+          return ;
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+        Prism.highlightAll();
       }
     }
   });

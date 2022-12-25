@@ -116,10 +116,10 @@ import store from '@/store';
         return this.explained.explained[index].code_snipest.source_code.length > 0;
       },
       prevArticle() {
-        console.log(`go previous`);
+        console.log(`go previous ${this.explained.next_prev_article.prv_article_id}`);
       },
       nextArticle() {
-        console.log(`go next`);
+        console.log(`go next ${this.explained.next_prev_article.prv_article_id}`);
       },
     },
     computed: {

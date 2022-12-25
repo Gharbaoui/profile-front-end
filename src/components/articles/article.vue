@@ -1,7 +1,7 @@
 <template>
-  <div class="h-full w-full flex flex-col justify-center items-center">
-    <div class="h-full overflow-y-auto w-full py-5 w-5/6">
-      <div class="text-center w-full text-lg py-3 font-mono font-bold border-line border-white border-b-2">
+  <div class="h-full w-full flex flex-col justify-center items-center py-5">
+    <div class="h-full overflow-y-auto w-full  px-5 w-5/6">
+      <div class="text-center w-full text-lg text-white py-3 font-mono font-bold border-line border-white border-b-2">
         {{explained.title}}
       </div>
       <div class="mt-5 text-center w-full text-lg py-3 text-white font-mono font-bold border-line border-white border-b-2">

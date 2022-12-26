@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col justify-around py-5 h-[85%]">
-    <div class="w-full">
+    <!-- <div class="w-full">
       <div class="flex justify-end">
 
             <div class="relative">
@@ -12,7 +12,7 @@
             <button @click="searchForArticle" type="submit" class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
         
         </div>
-    </div>
+    </div> -->
 
     <div class="w-full flex flex-wrap justify-around mt-10 h-3/4">
       <div v-for="article in articles" :key="article.id" @click="goToArticle(article.id)" class="border before:absolute before:-bottom-2 before:-right-2 before:h-4 before:w-4 before:border-b before:border-r before:transition-all before:duration-300 before:ease-in-out after:absolute after:-top-2 after:-left-2 after:h-4 after:w-4 after:border-t after:border-l after:transition-all after:duration-300 after:ease-in-out hover:before:h-[calc(100%+16px)] hover:before:w-[calc(100%+16px)] hover:after:h-[calc(100%+16px)] hover:after:w-[calc(100%+16px)]    cursor-pointer bg-gradient-to-b from-cyan-500 to-blue-500 rounded-lg inset-0 transform  hover:rotate-[15deg] hover:scale-[1.03] transition duration-300 flex flex-col items-center justify-around py-5 w-1/4">

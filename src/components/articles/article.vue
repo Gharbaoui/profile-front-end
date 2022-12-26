@@ -110,7 +110,8 @@
         }
       },
       redirectToArticle(article_id:number) {
-        console.log(`redirect to page ${article_id}`);
+        this.article_id = article_id;
+        // router.push({name: 'article', query: {articleid: article_id}});
       },
       is_source_code(index:number) : boolean {
         return this.explained.explained[index].code_snipest.source_code.length > 0;

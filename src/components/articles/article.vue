@@ -39,6 +39,8 @@
         <!-- conclusion  -->
         {{explained.conclusion}}
       </div>
+
+      </div>
       <div v-if="next_exist && prev_exist" class="flex justify-between w-full">
         <div @click="prevArticle" class="cursor-pointer bg-white border border-gray-300 text-gray-500 ml-0 rounded-l-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-pointer hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-white">
           Previous
@@ -59,8 +61,6 @@
           </div>
         </div>
       </div>
-
-      </div>
     </div>
 </template>
     
@@ -73,13 +73,13 @@
   import "prismjs/plugins/toolbar/prism-toolbar.min.css";
   import "prismjs/plugins/toolbar/prism-toolbar.min";
   import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min";
-import store from '@/store';
+  import store from '@/store';
+  import router from '@/router';
 
   export default defineComponent({
     name: 'ArticleBlock',
     mounted() {
       store.commit('update_is_article', true);
-      this.$emit('articlerendered');
       this.getExplained();
     },
     unmounted () {
@@ -116,10 +116,12 @@ import store from '@/store';
         return this.explained.explained[index].code_snipest.source_code.length > 0;
       },
       prevArticle() {
-        console.log(`go previous ${this.explained.next_prev_article.prv_article_id}`);
+        this.article_id = this.explained.next_prev_article.prv_article_id;
+        // router.push({name: 'article', query: {articleid: this.explained.next_prev_article.prv_article_id}});
       },
       nextArticle() {
-        console.log(`go next ${this.explained.next_prev_article.prv_article_id}`);
+        this.article_id = this.explained.next_prev_article.next_article_id;
+        // router.push({name: 'article', query: {articleid: this.explained.next_prev_article.next_article_id}});
       },
     },
     computed: {
@@ -147,6 +149,11 @@ import store from '@/store';
         window.Prism = window.Prism || {};
         window.Prism.manual = true;
         Prism.highlightAll();
+      }
+    },
+    watch: {
+      article_id() {
+        this.getExplained();
       }
     }
   });

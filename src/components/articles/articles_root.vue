@@ -113,7 +113,6 @@
         };
       },
       async getRightArticles() {
-        console.log(`called with ${this.current_page}`);
         const {start_index, end_index} = this.getArticleIndexs();
         try {
           const resp = await axios({

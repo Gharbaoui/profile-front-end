@@ -110,19 +110,17 @@
         }
       },
       redirectToArticle(article_id:number) {
-        this.article_id = article_id;
-        // router.push({name: 'article', query: {articleid: article_id}});
+        router.push({name: 'article', query: {articleid: article_id}});
       },
       is_source_code(index:number) : boolean {
         return this.explained.explained[index].code_snipest.source_code.length > 0;
       },
       prevArticle() {
-        this.article_id = this.explained.next_prev_article.prv_article_id;
-        // router.push({name: 'article', query: {articleid: this.explained.next_prev_article.prv_article_id}});
+        router.push({name: 'article', query: {articleid: this.explained.next_prev_article.prv_article_id}});
+        
       },
       nextArticle() {
-        this.article_id = this.explained.next_prev_article.next_article_id;
-        // router.push({name: 'article', query: {articleid: this.explained.next_prev_article.next_article_id}});
+        router.push({name: 'article', query: {articleid: this.explained.next_prev_article.next_article_id}});
       },
     },
     computed: {
@@ -150,11 +148,6 @@
         window.Prism = window.Prism || {};
         window.Prism.manual = true;
         Prism.highlightAll();
-      }
-    },
-    watch: {
-      article_id() {
-        this.getExplained();
       }
     }
   });

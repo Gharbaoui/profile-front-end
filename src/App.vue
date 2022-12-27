@@ -4,7 +4,7 @@
       <manager-comp />
     </div>
     <div style="height: 90%;">
-      <router-view />
+      <router-view :key="$route.fullPath"/>
     </div>
   </div>
 </template>

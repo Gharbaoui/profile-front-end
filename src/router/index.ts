@@ -7,7 +7,7 @@ import TestBlock from '../components/empty.vue';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: {name: 'aboutme'}
+    redirect: {name: 'articles'}
   },
   {
     path: '/aboutme',
